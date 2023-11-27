@@ -1,0 +1,101 @@
+
+/*****body*******/
+/*body{
+    background-color: rgb(12, 12, 155);
+}*/
+
+/*main{
+  margin: 35px;
+}*/
+
+/*top nav bar element
+#Admin-navElement.navbar-nav ul{
+  margin:0;
+  display:flex;
+  padding-right: 1rem;
+  gap:1rem;
+  list-style-type: none;
+}
+
+@media screen and (max-width: 600px) {
+  #navElement.navbar-nav {
+    display: none; /* Hide the navbar on small screens */
+  /*}*/
+/*}*/
+
+/*checkbox function*/
+.form-check{
+  vertical-align: middle;
+}
+
+/*date picker*/
+.visible {
+  display:block !important
+  }
+  .hidden {
+  display:none !important
+  }
+
+/* In your CSS stylesheet */
+
+/* Define the styles for the provided classes */
+.bg-blue-500 {
+  background-color: #3B82F6; /* Blue color hex code */
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.rounded-xl {
+  border-radius: 1rem;
+}
+
+.bottom-3 {
+  bottom: 0.75rem;
+}
+
+.right-3 {
+  right: 0.75rem;
+}
+
+#custom-navbar {
+  background-color: #0b3d91; /* Dark blue color */
+  color: #fff; /* Text color */
+}
+
+#card {
+  border: 2px solid;
+}
+
+.nav-link:hover {
+  color: #efeff0; /* Change this to your desired hover color */
+}
+
+.content-wrapper {
+  min-height: 100vh; /* Set minimum height to 100% of the viewport height */
+  position: relative; /* Required for the absolute positioning of the footer */
+  padding-bottom: 60px; /* Adjust the value as needed to prevent content from being hidden by the footer */
+}
+
+footer {
+  position: absolute; /* Position the footer absolutely within the container */
+  bottom: 0; /* Place it at the bottom of the container */
+  width: 100%; /* Make the footer span the entire width of the container */
+}
+
+#footer {
+  padding-bottom: 10px;
+  background: #4b6cb7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: contain;
+}

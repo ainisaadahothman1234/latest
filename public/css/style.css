@@ -1,0 +1,170 @@
+/*****body*******/
+body{
+  background-color: rgb(240, 240, 240);
+}
+
+main{
+  margin: 35px;
+}
+
+/*navbar*/
+#custom-navbar {
+    /*background-color: #45526e;  Dark blue color for the background */
+    background: #4b6cb7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/*top nav bar element for Admin*/
+#Admin-navElement.navbar-nav ul{
+  margin:0;
+  display:flex;
+  padding-right: 1rem;
+  gap:1rem;
+  list-style-type: none;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+  }
+  @media (min-width: 992px) {
+    .sidebar {
+      position: fixed;
+      top: 77px;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      display: block;
+      padding: 10px;
+      overflow-x: hidden;
+      overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+      background-color: white;
+      border-right: 1px solid #eee;
+    }
+    main{
+      margin-left: 18%;
+    }
+  }
+  
+  /* Sidebar navigation */
+  .nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+  }
+
+  .sidebar-link{
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar-link[aria-extended="true"] .right-icons{
+    transform: rotate(180deg);
+  }
+
+  .nav-sidebar li{
+    padding: 15px;
+  }
+  .nav-sidebar >li> a{
+    padding-right: 20px;
+    padding-left: 20px;
+    padding: 15px;
+  }
+  .nav-sidebar > li > a:focus {
+    color: #fff;
+  }
+
+/*checkbox function*/
+.form-check{
+  vertical-align: middle;
+}
+
+/*date picker*/
+/*from admin-style.css*/
+.visible {
+  display:block !important
+  }
+  .hidden {
+  display:none !important
+  }
+
+/*form horizontal line divider*/
+hr{
+  border-top: 2px solid #000000;
+}
+
+.column {
+  flex: 3; /* Make columns equally wide */
+  padding: 10px; /* Add some spacing between columns */
+  margin-right: 10px; /* Optional: Add margin between columns */
+}
+
+#card_front {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: -10px 10px rgba(124, 121, 121, 0.5);
+}
+
+#card_shadow {
+  border: 1px solid;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add shadow here */
+}
+
+#card {
+  border: 1px solid;
+}
+
+.nav-link:hover {
+  color: #efeff0; /* Change this to your desired hover color */
+}
+
+/* Footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0; /* Remove default margin to prevent unwanted space at the top */
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/*#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 0;
+  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+  background: linear-gradient(to right, #182848, #4b6cb7);
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: contain;
+  z-index: 1000;
+}*/
+
+
+/* Styling for the footer */
+#footer {
+  padding: 10px 0;
+  background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+  background: linear-gradient(to right, #182848, #4b6cb7);
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: contain;
+  z-index: 1000;
+}
+
+/* Add this CSS to your stylesheet or in a style block within your HTML document */
+.icon-lg {
+  font-size: 32px; /* Adjust the size as needed */
+  color: #eee;
+}
