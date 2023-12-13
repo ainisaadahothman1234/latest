@@ -19,6 +19,7 @@
                     <th>Service</th>
                     <th class="text-center">Total Staff</th>
                     <th class="text-center">Staff with 30+ Hours</th>
+                    <th class="text-center">Percentage Staff Completed 30+ Hours</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td>{{ $service }}</td>
                         <td class="text-center">{{ $hrs['total_staff'] }}</td>
                         <td class="text-center">{{ $hrs['total_hrs'] }}</td>
+                        <td class="text-center">{{ $hrs['percentage_completed'] }}</td> <!-- Display the percentage -->
                     </tr>
                 @endforeach
             </tbody>

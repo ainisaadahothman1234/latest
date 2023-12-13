@@ -16,6 +16,7 @@ use App\Http\Requests\AdminTrainingRequest;
 
 class AdminController extends Controller
 {
+    //index function -  the retrieval and display of a collection of resources.
     public function index(Request $request)
     {
         $chart=0;
@@ -55,40 +56,47 @@ class AdminController extends Controller
         
     }
 
+    //display add training form
     public function viewForm()
     {
         return view('admin.form');
     }
 
+    //display training form - this use where admin want to edit the training in the form.
     public function showForm(Request $request)
     {
         $training = Training::where('code', $request->code)->first();
         return view('admin.edit', ['training' => $training]);
     }
 
+    //to show / display the list of training
     public function show()
     {
         return view('admin.list', ['Tadd' => Training::all()]);
     }
 
+    //count total number of user/staff. this display at the homepage
     public function userCount()
     {
         $userCount = User::whereNotIn('position', ['admin', 'itadmin'])->count();
         return $userCount;
     }
 
+    //count total number of training exists. this display at the homepage.
     public function countTraining()
     {
         $countTraining = Training::count();
         return $countTraining;
     }
 
+    //count total number of training exists. this display at the homepage.
     public function reqTraining()
     {
         $reqTraining = Training::where('category', '=', 'External')->count();
         return $reqTraining;
     }
 
+    //calculate the percentage of staff completed 30 hours training
     public function percentage()
     {
         $staffWith30HoursOrMore = Apply::where('apply_status', 'Completed')
@@ -115,8 +123,7 @@ class AdminController extends Controller
         return $percentage;
     }
 
-    
-
+    //to store training (for new training)
     public function store(AdminTrainingRequest $request)
     {
         $attributes = $request->validated();
@@ -146,6 +153,7 @@ class AdminController extends Controller
         return view('admin.list', ['Tadd' => Training::all()]);
     }
 
+    //for admin to update the training that already posted
     public function update(AdminUpdateRequest $request)
     {
 
@@ -155,6 +163,7 @@ class AdminController extends Controller
         return redirect("/training/lists");
     }
 
+    //for admin to delete the training
     public function delete(AdminUpdateRequest $request)
     {
 
@@ -164,6 +173,7 @@ class AdminController extends Controller
         return redirect("/training/lists");
     }
 
+    //for admin to approve the requested training (training that request by HOS)
     public function approve(AdminUpdateRequest $request)
     {
 
@@ -173,6 +183,7 @@ class AdminController extends Controller
         return redirect("/training/req")->with('add success', 'New training being approved!');
     }
 
+    //for admin to reject the requested training (training that request by HOS)
     public function reject(AdminUpdateRequest $request)
     {
 
@@ -182,6 +193,7 @@ class AdminController extends Controller
         return redirect("/training/lists");
     }
 
+    //display the list of staff 
     public function listStaff()
     {
         $staffList = User::whereNotIn('position', ['admin', 'ITadmin'])
@@ -190,6 +202,7 @@ class AdminController extends Controller
         return view('admin.staff_list', compact('staffList'));
     }
 
+    //function for admin to mark the attendance
     public function attendanceStaff($Tcode)
     {
         $attendanceList = User::whereIn('staff_id', function ($query) use ($Tcode) {
@@ -219,6 +232,7 @@ class AdminController extends Controller
         ]);
     }
 
+    //function to mark as completed in db when admin mark the attendance as completed
     public function updateAttend(Request $request, $Tcode)
     {
         foreach ($request->selectedStaff as $staff) {
@@ -229,18 +243,21 @@ class AdminController extends Controller
         return redirect("/attendance/$Tcode");
     }
 
+    //function to mark as completed in db when admin mark the attendance as completed
     public function training()
     {
         $training = Training::where('type', 'external')->where('status', 'Pending')->get();
         return view('admin.training', compact('training'));
     }
 
+    //function to print the requested training
     public function print($code)
     {
         $training = Training::where('code', $code)->first();
         return view('admin.print', compact('training'));
     }
 
+    //when staff training is approved by HOS. Admin receive the notification. 
     public function trainingApprove($Tcode)
     {
         $training = Training::where('code', $Tcode)->first();
@@ -258,7 +275,7 @@ class AdminController extends Controller
         return redirect('/training/req');
     }
 
-
+    //this function when the requested training rejected. The details will appear in log activity/history page
     public function trainingReject($Tcode)
     {
 
@@ -277,6 +294,7 @@ class AdminController extends Controller
         return redirect('/training/req');
     }
 
+    //store attended staff. it display in log activity/history page
     public function attend($staff_id, Request $request)
     {
         $training_hrs = $request['training_hrs_' . $staff_id];
@@ -327,6 +345,7 @@ class AdminController extends Controller
     {
     }
     
+    //This function use to update the status training in db. when it already exceed the date end, the training status updated to Completed.
     public static function updateTrainingStatus()
     {
         // Get all the trainings that have exceeded the end date and have a status of 'Pending'.
@@ -338,6 +357,7 @@ class AdminController extends Controller
             return back();
     }
 
+    //This function use to count number of user. This function create to enable it to display the data based on the filtered data
     private function getUserCount($filterMonth, $filterYear)
     {
         // Modify your query to filter user count based on $filterMonth and $filterYear.
@@ -349,6 +369,7 @@ class AdminController extends Controller
         return $userCount;
     }
 
+   //This function use to count number of training. This function create to enable it to display the data based on the filtered data 
     private function getCountTraining($filterMonth, $filterYear)
     {
         // Modify your query to filter training count based on $filterMonth and $filterYear.
@@ -359,6 +380,7 @@ class AdminController extends Controller
         return $countTraining;
     }
 
+    //This function use to count number of requested training. This function create to enable it to display the data based on the filtered data
     private function getReqTraining($filterMonth, $filterYear)
     {
         // Modify your query to filter requested training count based on $filterMonth and $filterYear.
@@ -370,6 +392,7 @@ class AdminController extends Controller
         return $reqTraining;
     }
 
+    //This function use to calculate the percentage of the user completed 30 hours training. This function create to enable it to display the data based on the filtered data
     public function getPercentage($filterMonth, $filterYear) {
         $staffWith30HoursOrMore = Apply::where('apply_status', 'Completed')
             ->whereMonth('created_at', $filterMonth)
@@ -397,6 +420,7 @@ class AdminController extends Controller
         return $percentage;
     }
 
+    //to get all the carddata which is getUserCount, getCountTraining, getReqTraining, getPercentage
     public function getCardData(Request $request)
     {
         // Retrieve the selected month and year from the query parameters.
@@ -426,6 +450,7 @@ class AdminController extends Controller
         ]);
     }
 
+    //to get all the chartdata
     public function getChartData(Request $request) {
 
         // Retrieve the selected month and year from the query parameters.
@@ -467,7 +492,8 @@ class AdminController extends Controller
         ]);
     }  
 
-public function displayTableChart($currentMonth,$currentYear)
+    //to get all the displayTbaleChart
+    public function displayTableChart($currentMonth,$currentYear)
     {
         $filterMonth= $currentMonth;
         $filterYear=$currentYear;
@@ -488,6 +514,14 @@ public function displayTableChart($currentMonth,$currentYear)
                 if ($TrainingHours >= 30) {
                     $serviceData[$service]['total_hrs'] += 1; // Increment the total hours count for this service
                 }
+            }
+
+            // Calculate the percentage for each service
+            if ($serviceData[$service]['total_staff'] > 0) {
+                $percentage = ($serviceData[$service]['total_hrs'] / $serviceData[$service]['total_staff']) * 100;
+                $serviceData[$service]['percentage_completed'] = number_format($percentage, 2) . '%';
+            } else {
+                $serviceData[$service]['percentage_completed'] = '0%';
             }
         }
 

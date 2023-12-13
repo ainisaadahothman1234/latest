@@ -8,7 +8,8 @@
     </div>
     
     <div class="container-fluid d-flex justify-content-center">
-        <div class="card" id="card" style="width:100rem;">                       
+        <div class="card" id="card" style="width:100rem;">
+        <!--success message-->                       
             @if (session('success'))
                 <div class="alert alert-success m-2">
                     <ul>
@@ -16,6 +17,7 @@
                     </ul>
                 </div>
             @endif
+        <!--error message-->                       
             @if (session('error'))
                 <div class="alert alert-danger m-2">
                     <ul>
@@ -24,6 +26,7 @@
                 </div>
             @endif
 
+            <!--when the position is admin, it show 3 button which is add staff, reset password and deactivate-->
             <div class="d-flex justify-content-between my-2 mx-2">
                 <div>
                     @if(auth()->user()->position === 'admin')
@@ -33,12 +36,14 @@
                     <a href="/staff/deactivate" class="btn btn-danger border-3">Deactivate</a>
                 </div>
 
+                <!--search box-->
                 <div>
                     <!-- Search input for staff -->
                     <input type="text" id="searchInput" onkeyup="myFunction()" placeholder="Search for name or ID">
                 </div>
             </div>
 
+            <!--table to display the staff data-->
             <div class="col-md-12">
                 <div class="mt-3 mx-2">
                     <table class="table table-striped" id="myTable">
@@ -72,6 +77,7 @@
 @include('partials.footer')
 
 <script>
+    //function when user search in the search box
     function myFunction() {
         var input, filter, table, tbody, tr, td, i, j, txtValue;
         input = document.getElementById("searchInput");

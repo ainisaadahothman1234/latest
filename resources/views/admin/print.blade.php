@@ -1,9 +1,11 @@
 @include('partials.header')
 
 <div class="container mt-5 bg-white rounded-2">
+    <!--title-->
     <h4><a href="/training/req"><i class="bi bi-arrow-left-circle"></i></a></h4>
     <h4 class="text-center">COURSE / SEMINAR / TRAINING REQUEST FORM</h4>
 
+    <!--form of requested training-->
     <form>
         <!-- Course Details Section -->
         <h5 class="mt-4">COURSE DETAILS</h5>
@@ -52,12 +54,14 @@
             <input class="form-control" value="{{$training->quantity}} pax" id="numParticipants" name="numParticipants" disabled>
         </div>
 
+        <!---->
         <?php $allstaff = App\Models\Apply::select('staff_apply.*', 'users.*')
             ->join('users', 'staff_apply.staff_id', '=', 'users.staff_id')
             ->where('staff_apply.training_code', $training->code)
             ->get();
         ?>
 
+        <!--Display staff that join the training-->
         <table class="table">
             <thead>
                 <tr>

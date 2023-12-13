@@ -7,13 +7,16 @@ use Illuminate\Http\Request;
 
 class RemoveController extends Controller
 {
+    //display the deactivation page
     public function users()
     {
         return view('admin.deleteUser');
     }
 
+    //function to deactivate user (ue for admin and IT admin)
     public function deactivate(Request $request)
     {
+        //to check if the staff id is valid in db
         $attributes = $request->validate([
             'staff_id' => 'required|exists:users,staff_id'
         ]);
@@ -39,8 +42,8 @@ class RemoveController extends Controller
     
         return redirect('/ITadmin/home');
     }
-    
 
+    //function to reactivate the user again (yet to be use. Since staff who join back the company will be getting new id)
     public function activate(Request $request)
     {
         $attributes = $request->validate([

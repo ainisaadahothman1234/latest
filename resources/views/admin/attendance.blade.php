@@ -81,11 +81,12 @@
         </div>
     </div>
 
-    <!-- Attended Staff -->
+    <!-- Attended Staff title -->
     <div class="col-md-12 my-4 fw-bold fs-3 text-center">
         Attended Staff
     </div>
 
+    <!-- Attended Staff -->
     <div class="container d-flex justify-content-center">
         <div class="card" style="width: 100%">
             <div class="card-body">
@@ -148,3 +149,4 @@
     }
     }
 </script>
+

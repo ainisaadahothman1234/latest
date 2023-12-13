@@ -11,16 +11,19 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    //when admin want to register or add a new staff. This function will display the register view
     public function viewRegister()
     {
         return view('admin.register');
     }
     
+    //this function display the login page when user want to login
     public function login()
     {
         return view('general.index');
     }
 
+    //
     public function registerPost(RegistrationRequest $request)
     {
         $attributes = $request->validated();
@@ -33,6 +36,7 @@ class AuthController extends Controller
         return back();
     }
 
+    //this function use to capture the staff id and password when user login
     public function loginPost(Request $request)
     {
         $attributes = request()->validate([
@@ -40,6 +44,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+        //if success, this will display a successful message
             if (Auth::attempt($attributes, true)) {
 
                 if (Hash::check('password', auth()->user()->password)) {
@@ -52,11 +57,13 @@ class AuthController extends Controller
                 return redirect('/'.$user->position.'/home');
             }
 
+            //if invalid staff or forgot password. This will display the error message
             throw ValidationException::withMessages([
                 'staff_id' => 'Cannot verify your Staff ID'
             ]);
     }
     
+    //this is logout function
     public function logout()
     {
         Auth::logout();

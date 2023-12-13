@@ -1,6 +1,6 @@
 @include('partials.head')
 
-@if(!url()->current()=='http://127.0.0.1:8000/assign')
+@if(!url()->current()=='http://127.0.0.1:8000/assign')<!--only use to test assign staff-->
     @include('partials.sidebar')
     <main>
 @endif
@@ -8,12 +8,14 @@
     <div class="container-fluid my-4">
         <div class="row">
 
+        <!--title-->
             <div class="mb-3 col-md-12 fw-bold fs-3">
                 Training
             </div>
             
             <div class="container-fluid d-flex justify-content-center my-2">
                 <div class="card" id="card_shadow" style="width: 110rem;">
+                <!--error message-->
                 @if (session('error'))
                     <div class="alert alert-danger m-2">
                         <ul>
@@ -23,7 +25,7 @@
                     @endif
                     <div class="table p-3">
                         
-                        <div class="container-fluid d-flex justify-content-end">
+                        <div class="container-fluid d-flex justify-content-end"><!--search box-->
                             <input type="text" id="searchCourse" onkeyup="myFunction(event)" placeholder="Search">
                         </div>
 
@@ -45,6 +47,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($Tlist as $list)
+                                <!--show list of training when the quantity is not same with the enroll, when the training is not external and the status is upcoming-->
                                     @if ($list->quantity != \App\Http\Controllers\StaffController::getEnrolled($list->code) && $list->type != 'external' && $list->status == 'Upcoming')
                                         <tr>
                                             <td>{{ $list->code }}</td>
@@ -53,6 +56,7 @@
                                             @else
                                                 <td><a href="/assign/{{$list->code}}">{{ $list->title }}</a></td>
                                             @endif-->
+                                            <!--pop up error (the function available in the script at line 126)-->
                                             @if ($previousPage === Auth()->user()->position.'/training/list')
                                                 <td><a href="#" onclick="confirmApply('{{ $list->code }}', '{{ $list->title }}')">{{ $list->title }}</a></td>
                                             @else
@@ -118,6 +122,7 @@
     }
 </script>
 
+<!--pop up error when user want to apply or want to assign staff-->
 <script>
     function confirmApply(trainingCode, trainingTitle) {
         if (confirm(`Are you sure you want to apply for '${trainingTitle}' training?`)) {

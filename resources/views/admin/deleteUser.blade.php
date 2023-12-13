@@ -8,6 +8,7 @@
                 <div class="col-md-8 col-lg-6 col-xxl-3">
                     <div class="card mb-0" id="card">
                         <img src="{{ asset('images/logo.PNG') }}" alt="Logo" width="100" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                        <!--Deactivate user-->
                         <h5 class="card-title my-3 mx-3 text-center">User Deactivation</h5>
                         <div class="card-body">
 
@@ -24,6 +25,7 @@
 
                         </form>
 
+                        <!--error message-->
                         @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -45,3 +47,4 @@
 <x-flash />
 
 @include('partials.footer')
+

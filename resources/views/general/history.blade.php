@@ -4,10 +4,11 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 fw-bold fs-3 my-2">
-            History
+            Log Activity
         </div>
     </div>
 
+    <!--Year filteration-->
     <div class="container-fluid" style="width: 95rem;">
         <div class="d-flex justify-content-end my-3">
             <label for="year">Select Year:</label>
@@ -19,9 +20,11 @@
             </select>
         </div>
 
+        <!--log activity table-->
         <div class="card mb-4" id="card">
             <div class="table-responsive my-4">
                 <table class="table">
+                    <!--table header-->
                     <thead>
                         <tr>
                             <th class="text-center">Title</th>
@@ -30,6 +33,7 @@
                             <th class="text-center">Updated Date</th>
                         </tr>
                     </thead>
+                    <!--calling the output for the table-->
                     <tbody id="tbody">
                         @foreach ($history as $record)
                             <tr id="tr">
@@ -76,3 +80,4 @@
 <x-flash />
 
 @include('partials.footer')
+

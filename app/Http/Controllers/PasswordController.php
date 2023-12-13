@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
+    //display reset / create new password page
     public function index(Request $request)
     {
         return view('general.password.new');
     }
 
+    //Checks if the user's current password matches the entered password. If the current password matches 'password', it accepts an email input.
     public function changePassword(Request $request)
     {
         $email = Auth()->user()->email;
@@ -36,6 +38,7 @@ class PasswordController extends Controller
             ]);
         }
         
+        //Updates the password in the database using bcrypt() for encryption based on the provided 'staff_id'.
         User::where('staff_id', $attributes['staff_id'])
         ->update(['password' => bcrypt($attributes['new_password'])], ['email'=> $email]);
 
@@ -47,10 +50,4 @@ class PasswordController extends Controller
         return redirect('/login')->with('success', 'Password updated successfully.');
     }
 
-    public function forgot(){
-
-        return view('general.forgot');
-
-    }
-    
 }

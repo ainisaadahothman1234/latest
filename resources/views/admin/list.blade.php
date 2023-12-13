@@ -1,11 +1,14 @@
 @include('partials.head')
 
 <div class="container-fluid">
+
+    <!--title/header-->
     <div class="col-md-12 my-4 fw-bold fs-3">
         Training List
     </div>
+
     <div class="container-fluid d-flex justify-content-center mb-3">
-         
+         <!--success message-->
         <div class="card" id="card" style="width:100rem;">
             @if(session('success'))
                   <div class="alert alert-success m-2">
@@ -13,17 +16,21 @@
                 </div>
             @endif
 
+         <!--Add training button-->
         <div class="d-flex justify-content-between">
             <div class="mb-3 mx-3 my-3">
                 <a href="/training/add" class="btn btn-primary"><i class="bi bi-plus"></i>Add Training</a>
             </div>
+            <!--search box-->
             <div class="mb-3 mx-3 my-3">
                 <input type="text" id="searchCourse" onkeyup="myFunction(event)" placeholder="Search">
             </div>
         </div>
 
+        <!--list of training-->
             <div class="card-body">
                 <table class="table table-striped" id="courseTable">
+                    <!--column name-->
                     <thead>
                         <tr>
                             <th scope="col" class="sortable">Training Code <i class="bi bi-arrow-up-short"></i></th>
@@ -35,26 +42,37 @@
                         </tr>
                     </thead>
 
+                    <!--data for each column-->
                     <tbody id="tbody">
                         @foreach ($Tadd as $add)
                            
                                 <tr class="table-row-striped" id="tr">
+                                    <!--training code-->
                                     <td>
                                         <h6 class="fw-semibold mb-1">{{$add->code}}</h6>
                                     </td>
+
+                                    <!--training title-->
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
                                             <a href="/training/{{ $add->code }}">{{ $add->title }}</a>
                                         </div>
                                     </td>
+
+                                    <!--training type-->
                                     <td>
                                         <p class="mb-0 fw-normal">{{$add->type}}</p>
                                     </td>
+
+                                    <!--quantity/seat opened-->
                                     <td>
                                         <h6 class="fw-semibold mb-0 text-center">{{$add->quantity}}</h6>
                                     </td>
                                     
+                                    <!--number of enrolled-->
                                     <td class="text-center">{{ \App\Http\Controllers\StaffController::getEnrolled($add->code) }}</td>
+
+                                    <!--training status-->
                                     <td class="text-center">
                                         @if ($add->status == 'Upcoming')
                                             <button class="btn btn-warning">{{ $add->status }}</button>
@@ -178,3 +196,4 @@
     }
     }
 </script>
+

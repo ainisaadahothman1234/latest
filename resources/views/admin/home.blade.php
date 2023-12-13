@@ -3,7 +3,9 @@
     <div class="container-fluid">
         <div class="row">
 
-            <!--Dashboard-->
+            <!--Admin Dashboard-->
+
+            <!--dashboard title-->
             <div class="col-md-12 fw-bold fs-3 my-2">
                 Admin Dashboard
             </div>
@@ -18,6 +20,7 @@
                 <!--select year and month-->
                 <form method="GET" action="/admin/home">
                     @csrf
+                    <!--select month-->
                     <label for="filter_month">Select Month:</label>
                     <select name="filter_month" id="filter_month">
                         @php
@@ -37,6 +40,7 @@
                             '12' => 'December',
                         ];
                         @endphp
+                        <!--display the selected month-->
                         @foreach ($months as $monthValue => $monthName)
                         <option value="{{ $monthValue }}" {{ $filterMonth == $monthValue ? 'selected' : '' }}>
                             {{ $monthName }}
@@ -44,10 +48,12 @@
                         @endforeach
                     </select>
 
+                    <!--select year-->
                     <label for="filter_year">Select Year:</label>
                     <select name="filter_year" id="filter_year">
                         @php
                         $currentYear = date('Y');
+                        <!--display the selected year-->
                         for ($year = $currentYear; $year >= ($currentYear - 15); $year--) {
                             echo "<option value=\"$year\" {{ $filterYear == $year ? 'selected' : '' }}>$year</option>";
                         }
@@ -58,7 +64,9 @@
                     <button type="submit" name="reset_filter" class="btn btn-secondary">Reset</button>
                 </form>
       
-                <!--card to display data that related to the training system-->
+                <!--card to display monthly data that related to the training system-->
+
+                <!--show annual training list-->
                 <div class="row" id="dashboardContainer">
                     <div class="col-md-4">
                         <div class="card my-4 text-center" id="totalTrainingCard">
@@ -70,6 +78,7 @@
                         </div>
                     </div>
 
+                <!--show number of staff for that month. if click reset, it will show total number of staff -->
                     <div class="col-md-4">
                         <div class="card my-4 text-center" id="totalStaffCard">
                             <div class="card-body">
@@ -79,6 +88,7 @@
                                         <p>Staffs</p>
                                         <a href="/staff/lists" class="btn btn-primary">Staff</a>
                                     </div>
+                                    <!--show percentage of staff that completed 30 hours training-->
                                     <div class="col">
                                         <h5 class="card-title" id="percentage">
                                             {{ $percentage }}
@@ -90,6 +100,7 @@
                         </div>
                     </div>
 
+                    <!--show total number of requested training-->
                     <div class="col-md-4">
                         <div class="card my-4 text-center" id="reqTrainingCard">
                             <div class="card-body">
@@ -131,6 +142,7 @@
     <!-- JavaScript -->
 
     <script>
+        //function to make the chart updated
         function updateCardData(totalTraining, totalStaff, percentage, reqTraining) {
                     // Update the card elements with new data
                     document.getElementById('totalTraining').textContent = totalTraining;
@@ -141,6 +153,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             
+            //update the card based on the selected month, year
             const filterMonthSelect = document.getElementById('filter_month');
             const filterYearSelect = document.getElementById('filter_year');
             const applyFilterButton = document.getElementById('apply_filter_button');
@@ -261,3 +274,5 @@
     </footer>
 
 @include('partials.footer')
+
+

@@ -18,11 +18,11 @@
                     <div class="card-body">
                         <form
                             action="<?php echo isset($ETraining['req_id']) ? '/external/assign/' . $ETraining['req_id'] : '/' . auth()->user()->position . '/assign/' . $ETraining; ?>"
-                            method="post" class="p-3" id="assignTrainingForm">
+                            method="post" class="p-3" id="assignTrainingForm"><!--handle assigning training for internal and external training.-->
                 
                             @csrf
                 
-                            <input type="hidden" name="Etraining" id="Etraining" value="{{ json_encode($ETraining) }}">
+                            <input type="hidden" name="Etraining" id="Etraining" value="{{ json_encode($ETraining) }}"><!---->
                 
                             <div class="col-md-12 my-2 fw-semibold">
                                 <!--Assign To:
@@ -43,12 +43,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($staffInService as $id => $staff)
+                                            @foreach($staffInService as $id => $staff)<!--list of staff under the services-->
                                             <tr>
                                                 <td>{{ $id + 1 }}</td>
                                                 <td>{{ $staff->staff_id }}</td>
                                                 <td>{{ $staff->name }}</td>
-                                                <td>{{ App\Http\Controllers\StaffController::getHour($staff->staff_id) }}</td>
+                                                <td>{{ App\Http\Controllers\StaffController::getHour($staff->staff_id) }}</td><!--staff total training hours-->
                                                 <td><input class="form-check-input" type="checkbox" name="selectedStaff[]" id="selectedStaff[]" value="{{ $staff->staff_id }}"></td>
                                             </tr>
                                             @endforeach
@@ -57,6 +57,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
+                                <!--assign button-->
                                 <button type="button" class="btn btn-primary my-4" onclick="validateForm()">Assign</button>
                             </div>
                         </form>
@@ -97,3 +98,4 @@
 <x-flash />
 
 @include('partials.footer')
+

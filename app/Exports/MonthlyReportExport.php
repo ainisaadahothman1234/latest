@@ -14,6 +14,7 @@ class MonthlyReportExport implements FromCollection, WithHeadings
 {
     protected $data;
 
+    //to receives data that will be used for export and stores it in the $data property.
     public function __construct($data)
     {
         $this->data = $data;
@@ -22,12 +23,12 @@ class MonthlyReportExport implements FromCollection, WithHeadings
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function collection()
+    public function collection() //
     {
         return collect($this->data)->map(function ($item) {
 
-            $dateStart = new DateTime($item->date_start);
-            $dateEnd = new DateTime($item->date_end);
+            $dateStart = new DateTime($item->date_start);// date start function
+            $dateEnd = new DateTime($item->date_end);// date end function
 
             // Calculate the difference between dates
             $dateDiff = $dateStart->diff($dateEnd);
@@ -38,7 +39,8 @@ class MonthlyReportExport implements FromCollection, WithHeadings
             // Calculate the total price based on your logic
             $totalPrice = $item->total_participants * $item->price;
 
-            if (Auth()->user()->position === 'admin') {
+            if (Auth()->user()->position === 'admin')//when position is admin
+            {
                 return [
                     $item->code,
                     $item->title,
@@ -46,6 +48,9 @@ class MonthlyReportExport implements FromCollection, WithHeadings
                     $item->user_category, // user category
                     $item->service,
                     $item->division,
+                    $item->user_name,
+                    $item->date_start,
+                    $item->date_end,
                     $item->category, // training category
                     $item->total_participants,
                     $totalDays,
@@ -54,10 +59,11 @@ class MonthlyReportExport implements FromCollection, WithHeadings
                     $item->training_hrs,
                     $item->total_training_hrs, // Include total_training_hrs
                 ];
-            } else
+            } else //when the position others than admin
             {
                 return [
                     $item->staff_id,
+                    $item->user_name,
                     $item->code,
                     $item->title,
                     $item->date_start,
@@ -72,7 +78,7 @@ class MonthlyReportExport implements FromCollection, WithHeadings
         });
     }
 
-    public function headings(): array
+    public function headings(): array //heading use to provides the column headings for the Excel file.
     {
         if (Auth()->user()->position === 'admin') {
             return [
@@ -83,6 +89,9 @@ class MonthlyReportExport implements FromCollection, WithHeadings
                 'Service',
                 'Division',
                 'Training Category',
+                'Staff Name',
+                'Date Start',
+                'Date End',
                 'Total Participants',
                 'Total Days',
                 'Price',
@@ -94,6 +103,7 @@ class MonthlyReportExport implements FromCollection, WithHeadings
 
             return [
                 'Staff Id',
+                'Staff Name',
                 'Training Code',
                 'Training Title',
                 'Date Start',

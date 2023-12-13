@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 
-
 //test?
 var $table = $('#table');
     $(function () {
@@ -26,7 +25,6 @@ var $table = $('#table');
 	$(trBoldBlue).on("click", "tr", function (){
 			$(this).toggleClass("bold-blue");
 	});
-
 
 //search//
 

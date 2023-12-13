@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Notification;
 
 class StaffController extends Controller
 {
+    //Redirects to the 'home' route.
     public function index(){
         return redirect('home');
     }
     
+    //display the training that join by the staff
     public function CourseDetail($page, $trainingID)
     {
         return view('staff.' . $page, [
@@ -23,6 +25,7 @@ class StaffController extends Controller
         ]);
     }
     
+    //Handles the application process for training.
     public function apply(Request $request, $trainingCode)
     {
         $previous = $request->create(url()->previous())->path();
@@ -32,19 +35,20 @@ class StaffController extends Controller
 
         $staffID = [];
 
+       //Validates and handles staff applying for training based on their positions (admin, HOS, staff).
         if ($user->position == 'hos' || $user->position == 'admin') {
 
-            // Fetch both services of the user if they are an HOS
-            $services = [
+            // Fetch both services of the user if they are an HOS. Not yet beign use since 
+            /*$services = [
                 $user->service,
                 $user->service2,
-            ];
+            ];*/
 
             if ($previous == Auth()->user()->position.'/training/list') {
 
                 $staffID[0] = $user->staff_id;
                 $noti = 'Successfully, apply training';
-                $approvel = 'Approved';
+                $approval = 'Approved';
             } else {
                 $staffID = $request->selectedStaff;
 
@@ -91,6 +95,7 @@ class StaffController extends Controller
                 }
             }
 
+            //Inserts training applications for staff.
         $trainingHrs = Training::where('code', $trainingCode)->value('duration');
         foreach ($staffID as $staffid) {
             Apply::insert(
@@ -105,6 +110,7 @@ class StaffController extends Controller
             );
         }
 
+        //notification emails to respective individuals regarding the training application status.
         $this->sendEmailToHOS( $trainingCode);
 
         session()->forget(['selectedStaff', 'page', 'selectAll']);
@@ -112,6 +118,7 @@ class StaffController extends Controller
         return redirect('/'.$user->position.'/home');
     }
 
+    //Retrieves the total training hours for a specific staff member.
     public static function getHour($staffID)
     {
         return $trainingHoursTotal = Apply::where('staff_id', $staffID)
@@ -119,6 +126,7 @@ class StaffController extends Controller
             ->sum('training_hrs');
     }
   
+    //Notifies HOS about a new training application.
     public function sendEmailToHOS( $code)
     {
         $staffUser = Auth()->user();
@@ -155,6 +163,7 @@ class StaffController extends Controller
         
     }
     
+    //Retrieves the count of staff members enrolled in a specific training and updates the 'enrolled' column in the 'training' table.
     public static function getEnrolled($trainingCode)
     {
         $count = Apply::where('training_code', $trainingCode)
@@ -168,6 +177,7 @@ class StaffController extends Controller
         return $count;
     }
     
+    //Retrieves the total count of staff members belonging to a specific service.
     public static function getStaff($service)
     {
         return $totalStaff = User::where('service', Auth()->user()->service)
@@ -175,6 +185,7 @@ class StaffController extends Controller
             ->count();
     }
 
+    //Calculates and returns the completion percentage of training hours for a staff member.
     public static function getPercentage()
     {
         $user = Auth::user();
@@ -203,6 +214,7 @@ class StaffController extends Controller
         return $percentage;
     }
 
+    //Fetches details of completed training for a specific staff member.
     public function showCompletedTraining($staff_id) {
         // Fetch completed training details for a specific staff member
         $completedTrainings = User::select('users.staff_id', 'users.name as staff_name', 'training.code as training_code', 'training.title as training_name', 'training.date_start as date_start', 'training.date_end as date_end', 'staff_apply.training_hrs as training_hour')
@@ -215,4 +227,5 @@ class StaffController extends Controller
         return view('hos.staff_training', ['completedTrainings' => $completedTrainings]);
     }
     
-}     
+}  
+

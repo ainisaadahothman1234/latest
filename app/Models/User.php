@@ -22,7 +22,7 @@ class User extends Authenticatable
      */
     protected $guarded = [];
 
-    use SoftDeletes; // Add this line
+    use SoftDeletes; // Add this line for a way to mark records as deleted without physically removing them from the database.
     protected $dates = ['deleted_at'];
 
     /**
@@ -45,16 +45,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    //to bcrypt the password
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
     }
 
+    //to declare $role function
     public function hasRole($role)
     {
         return Auth()->user()->position  === $role;
     }
 
+    //when staff enrolled the training (when the application is approved by HOS)
     public function applies()
     {
         return $this->hasMany(Apply::class, 'staff_id');
@@ -73,6 +76,7 @@ class User extends Authenticatable
             ->sum('training_hrs');
     }
 
+    // get staff name
     public static function getName($staff_id)
     {
         return User::where('staff_id', $staff_id)->pluck('name');

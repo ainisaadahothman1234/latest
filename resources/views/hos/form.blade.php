@@ -15,6 +15,7 @@
             
             <div class="card my-3" id= "card_front" style="width: 90rem;">
 
+            <!--Error when duplicate occour-->
                 @if (session('duplicate'))
                     <div class="alert alert-danger mt-2">
                         {{ session('duplicate') }}
@@ -87,9 +88,6 @@
                                     <label for="id" class="text-black fw-medium my-2 form-label">REMARK</label>
                                     <input type="text" class="form-control" id="remark" name='remark' value="{{ old('remark') }}" required>
 
-                
-                                    
-
                                     @foreach ($errors-> all() as $error)
                                     <li>{{$error}}</li>
                                     @endforeach
@@ -123,3 +121,4 @@
 
 </div>
 </div>
+

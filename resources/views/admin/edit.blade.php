@@ -6,8 +6,9 @@
 
             <!--<form action="/training/update">-->
             <form action="/training/update" method="get" id="update-form">
-                @csrf
+                @csrf <!--@csrf use to capture data in form-->
 
+                <!--only admin can print the requested training-->
                 @if(Auth()->user()->position == 'admin')
                     <div class="d-flex justify-content-end">
                         <button class="no-print btn btn-primary" onClick="window.print()"><i class="bi bi-printer"></i></button>
@@ -15,6 +16,8 @@
                 @endif
 
                 <!-- Details -->
+
+                <!--Training Name-->
                 <div class="form-group row">
                     <div class="mb-3">
                         <label for="title" class="text-black fw-medium my-2 form-label">Training Name</label>
@@ -24,6 +27,7 @@
                     </div>
                 </div>
 
+                <!--Training type-->
                 <div class="form-group row">
                     <div class="mb-3">
                         <label for="type" class="text-black fw-medium my-2 form-label">Training Type</label>
@@ -38,6 +42,7 @@
                     </div>
                 </div>
 
+                <!--Training category-->
                 <div class="form-group row">
                             <div class="mb-3">
                                 <label for="category" class="text-black fw-medium my-2 form-label">Training category</label>
@@ -58,6 +63,8 @@
                             </div>
                         </div>
 
+                
+                        <!--Speaker-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="speaker" class="text-black fw-medium my-2 form-label">Speaker</label>
@@ -66,6 +73,8 @@
                             </div>
                         </div>
 
+                
+                        <!--Start Date-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="date" class="text-black fw-medium my-2 form-label">Start Date</label>
@@ -74,6 +83,7 @@
                             </div>
                         </div>
 
+                <!--End Date-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="date" class="text-black fw-medium my-2 form-label">End Date</label>
@@ -82,6 +92,7 @@
                             </div>
                         </div>
 
+                <!--Time Start-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="time_start" class="text-black fw-medium my-2 form-label">Time Start</label>
@@ -90,6 +101,7 @@
                             </div>
                         </div>
 
+                <!--Time End-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="time_end" class="text-black fw-medium my-2 form-label">Time End</label>
@@ -98,6 +110,7 @@
                             </div>
                         </div>
 
+                <!--Duration-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="duration" class="text-black fw-medium my-2 form-label">Duration</label>
@@ -106,6 +119,7 @@
                             </div>
                         </div>
 
+                <!--Location-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="location" class="text-black fw-medium my-2 form-label">Location</label>
@@ -114,6 +128,7 @@
                             </div>
                         </div>
 
+                <!--Quantity-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="quantity" class="text-black fw-medium my-2 form-label">Quantity</label>
@@ -122,6 +137,7 @@
                             </div>
                         </div>
 
+                <!--Price-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="price" class="text-black fw-medium my-2 form-label">Price</label>
@@ -130,6 +146,7 @@
                             </div>
                         </div>
 
+                <!--Details-->
                         <div class="form-group row">
                             <div class="mb-3">
                                 <label for="detail" class="text-black fw-medium my-2 form-label">Details</label>
@@ -146,12 +163,14 @@
                     </div>
                 </div>
 
+                <!--Training Code in hidden-->
                 <input type="hidden" name="code" id="code" value="{{$training->code}}">
                 <?php $training->code ?>
                 @foreach ($errors->all() as $error)
                 <li>{{$error}}</li>
                 @endforeach
 
+                <!--Delete, attendance and update button-->
                 @if(Auth()->user()->position == 'admin')
                     <div class="d-flex justify-content-between my-3">
                         <button id='option' class="btn btn-danger" onclick="confirmDelete()">Delete</button>
@@ -183,3 +202,4 @@
 <x-flash />
 
 @include('partials.footer')
+

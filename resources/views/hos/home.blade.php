@@ -1,6 +1,5 @@
 @include('partials.head')
 
-
 <div class="container-fluid">
 
     <!--start total hours-->
@@ -17,10 +16,9 @@
         </div>
         @endif
         
-        <!--Create card that will display the total of training hour-->
         <div class="row">
 
-
+        <!--Create card that display the total of training hour-->
             <div class="col-md-4">
                 <div class="card my-4 text-center" id="card">
                     <div class="card-body">
@@ -28,11 +26,12 @@
                             {{ App\Http\Controllers\StaffController::getHour(Auth()->user()->staff_id) }}
                         </h5>
                         <p class="card-text">Your total hours of learning</p>
-                        <a href="/{{ Auth()->user()->position }}/training/list" class="btn btn-primary">Train More!</a>
+                        <a href="/{{ Auth()->user()->position }}/training/list" class="btn btn-primary">Train More!</a> <!--button to go to the training list-->
                     </div>
                 </div>
             </div>
 
+        <!--Create card that display the how many percentage to go to 30 hours complete the training hour-->
             <div class="col-md-4">
                 <div class="card my-4 text-center" id="card">
                     <div class="card-body">
@@ -40,11 +39,12 @@
                             {{ App\Http\Controllers\StaffController::getPercentage(Auth()->user()->staff_id) }}
                         </h5>
                         <p class="card-text">Your completion of 30 hours training</p>
-                        <a href="/reports" class="btn btn-primary">Report</a>
+                        <a href="/reports" class="btn btn-primary">Report</a><!--button to go report page-->
                     </div>
                 </div>
             </div>    
 
+            <!--Card to display how many staff under the HOS-->
             <div class="col-md-4">
                 <div class="card my-4 text-center" id="card">
                     <div class="card-body">
@@ -52,7 +52,7 @@
                             {{ App\Http\Controllers\StaffController::getStaff(Auth()->user()->staff_id) }}
                         </h5>
                         <p class="card-text">Your number of Staff</p>
-                        <a href="/lists" class="btn btn-primary">Staff</a>
+                        <a href="/lists" class="btn btn-primary">Staff</a><!--button to see the staff details-->
                     </div>
                 </div>
             </div>
@@ -75,6 +75,7 @@
     </div>
     <!-- End Charts section -->
 
+    <!--tbale to display the current training (Training that need to join)-->
     <div class="card my-3" id="card">
             <h3 class="mb-1 col-md-12 fw-bold fs-3 my-3 mx-3">Current Training</h3>
         <div class="card-body">
@@ -97,11 +98,11 @@
                                 <td>{{ $request->type }}</td>
                                 <td>{{ $request->category }}</td>
                                 <td>
-                                    @if ($request->apply_status == 'Approved')
+                                    @if ($request->apply_status == 'Approved')<!--when the status is approved, it show green button-->
                                         <button class="btn btn-success">{{ $request->apply_status }}</button>
-                                    @elseif ($request->apply_status == 'Pending')
+                                    @elseif ($request->apply_status == 'Pending')<!--when the status is pending, it show yellow button-->
                                         <button class="btn btn-warning">{{ $request->apply_status }}</button>
-                                    @elseif ($request->apply_status == 'Rejected')
+                                    @elseif ($request->apply_status == 'Rejected')<!--when the status is rejected, it show red button-->
                                         <button class="btn btn-danger">{{ $request->apply_status }}</button>
                                     @endif
                                 </td>
@@ -133,7 +134,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $Elist = App\Models\Training::External(); ?>
+                        <?php $Elist = App\Models\Training::External(); ?><!--calling for external training model-->
                         @foreach ($Elist as $external)
                             @if (
                                     ($external->type == 'External' && $external->req_id == Auth()->user()->staff_id) ||
@@ -150,11 +151,11 @@
                                     <td>{{ $external->price }}</td>
                                     <td>{{ $external->detail }}</td>
                                     <td>
-                                        @if ($external->approve_ceo == 'Approved')
+                                        @if ($external->approve_ceo == 'Approved')<!--when the status is approved, it show green button-->
                                             <button class="btn btn-success">{{ $external->approve_ceo }}</button>
-                                        @elseif ($external->approve_ceo == 'Pending')
+                                        @elseif ($external->approve_ceo == 'Pending')<!--when the status is pending, it show yellow button-->
                                             <button class="btn btn-warning">{{ $external->approve_ceo }}</button>
-                                        @elseif ($external->approve_ceo == 'Rejected')
+                                        @elseif ($external->approve_ceo == 'Rejected')<!--when the status is rejected, it show red button-->
                                             <button class="btn btn-danger">{{ $external->approve_ceo }}</button>
                                         @endif
                                     </td>

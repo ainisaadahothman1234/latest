@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    //
+    //Retrieves the user's details based on their staff ID using Auth()->user()->staff_id.
     public function index()
     {
 
@@ -18,6 +18,7 @@ class ProfileController extends Controller
         ]);
     }
 
+    //update the profile when user make any changes
     public function update(Request $request)
     {
 

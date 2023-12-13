@@ -27,6 +27,7 @@ class CourseApprovalNotification extends Mailable
      */
     public function envelope(): Envelope
     {
+        //subject email
         return new Envelope(
             subject: 'Course Approval Notification',
         );

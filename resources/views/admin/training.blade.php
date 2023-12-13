@@ -13,6 +13,8 @@
         <div class="container-fluid d-flex justify-content-center">
             <div class="card my-3" id="card" style="width:100rem;">
                 <div class="card-body">
+
+                    <!--success message-->
                 @if(session('success'))
                     <div class="alert alert-success m-2">
                         {{ session('success') }}

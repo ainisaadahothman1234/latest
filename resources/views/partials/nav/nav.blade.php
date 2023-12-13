@@ -7,7 +7,7 @@
                 <img src="{{ asset('images/kpj logo.png') }}" alt="Logo" width="100" height="50" class="d-inline-block align-text-top">
             </a>
             <!-- System name -->
-            <a class="navbar-brand fw-bold text-light" href="{{ Auth::check() ? route(Auth::user()->position . '.home') : '/' }}">Training System</a>
+            <a class="navbar-brand fw-bold text-light" href="{{ Auth::check() ? route(Auth::user()->position . '.home') : '/' }}">Employee e-Learning System</a>
             
             @auth
                 @if(Auth()->user()->position === 'hos')

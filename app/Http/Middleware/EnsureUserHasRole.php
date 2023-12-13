@@ -22,7 +22,7 @@ class EnsureUserHasRole
         $userPosition = $request->user()->position;
 
         if ($userPosition !== $position) {
-            dd(url()->current());
+            //dd(url()->current());
             return redirect('/logout');
         }
 

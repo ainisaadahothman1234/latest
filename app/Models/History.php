@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
+
+    //the data capture into histories table in database
     protected $table = 'histories';
 }

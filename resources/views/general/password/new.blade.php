@@ -8,10 +8,13 @@
                 <div class="col-md-8 col-lg-6 col-xxl-3">
                     <div class="card mb-0" id="card">
                         <img src="{{ asset('images/logo.PNG') }}" alt="Logo" width="100" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                        
+                        <!--Title-->
                         <h5 class="card-title my-3 mx-3 text-center">Reset Password</h5>
                         
                         <div class="card-body">
 
+                        <!--form collect data from staff -->
                         <form action="/password/new" method="post">
                             @csrf
                             <label for="staff_id">Staff ID</label>

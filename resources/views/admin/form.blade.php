@@ -6,7 +6,9 @@
 
                 <form action="/training/add" method="POST">
                     @csrf
-                    <!--details-->
+                    <!--details to add training-->
+
+                    <!--title-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="title" class="text-black fw-medium my-2 form-label">Training Name</label>
@@ -14,6 +16,7 @@
                         </div>
                     </div>
 
+                    <!--code-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="code" class="text-black fw-medium my-2 form-label">Training Code</label>
@@ -21,6 +24,7 @@
                         </div>
                     </div>
 
+                    <!--Type-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="type" class="text-black fw-medium my-2 form-label">Training Type</label>
@@ -35,6 +39,7 @@
                         </div>
                     </div>
 
+                    <!--category-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="category" class="text-black fw-medium my-2 form-label">Training category</label>
@@ -54,6 +59,7 @@
                         </div>
                     </div>
 
+                    <!--speaker-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="speaker" class="text-black fw-medium my-2 form-label">Speaker</label>
@@ -62,6 +68,7 @@
                         </div>
                     </div>
 
+                    <!--start date-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="date" class="text-black fw-medium my-2 form-label">Start Date</label>
@@ -70,6 +77,7 @@
                         </div>
                     </div>
 
+                    <!--end date-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="date" class="text-black fw-medium my-2 form-label">End Date</label>
@@ -78,6 +86,7 @@
                         </div>
                     </div>
 
+                    <!--time start-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="time_start" class="text-black fw-medium my-2 form-label">Time Start</label>
@@ -86,6 +95,7 @@
                         </div>
                     </div>
 
+                    <!--time end-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="time_end" class="text-black fw-medium my-2 form-label">Time End</label>
@@ -94,6 +104,7 @@
                         </div>
                     </div>
 
+                    <!--duration-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="duration" class="text-black fw-medium my-2 form-label">Duration</label>
@@ -102,6 +113,7 @@
                         </div>
                     </div>
 
+                    <!--location-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="location" class="text-black fw-medium my-2 form-label">Location</label>
@@ -110,6 +122,7 @@
                         </div>
                     </div>
 
+                    <!--quantity-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="quantity" class="text-black fw-medium my-2 form-label">Quantity</label>
@@ -118,6 +131,7 @@
                         </div>
                     </div>
 
+                    <!--price-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="price" class="text-black fw-medium my-2 form-label">Price</label>
@@ -126,6 +140,7 @@
                         </div>
                     </div>
 
+                    <!--Details-->
                     <div class="form-group row">
                         <div class="mb-3">
                             <label for="detail" class="text-black fw-medium my-2 form-label">Details</label>
@@ -143,10 +158,12 @@
                         </div>
                     </div>
 
+                    <!--error message-->
                     @foreach ($errors-> all() as $error)
                     <li>{{$error}}</li>
                     @endforeach
                     
+                    <!--submit button-->
                     <button type="Submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -156,3 +173,4 @@
     <x-flash />
 
 @include('partials.footer')
+

@@ -10,6 +10,7 @@ class Notification extends Model
 {
     use HasFactory;
 
+    //Display the staff under the HOS services
     public function getStaff(){
         return $this->hasMany(User::class, 'staff_id');
     }

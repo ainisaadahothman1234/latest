@@ -30,13 +30,13 @@
         </div>
 
         <!--chart-->
-        <!--performance of overall services in chart-->
+        <!--monthly performance of the staff in form of chart-->
         <div class="container-fluid">
             <div class="card text-bg-light mb-3">
                 <div class="card-header text-center" id="card">
                     Total Training Hours by Department
                     <div class="card-body">
-                        @include('chart')
+                        @include('chart')<!--include use to call the chart-->
                     </div>
                 </div>
             </div>
@@ -61,18 +61,18 @@
                             </thead>
                             <tbody>
                                 @foreach ($Tlist as $request)
-                                    @if($request->apply_status == 'Approved' || $request->apply_status == 'Pending' || $request->apply_status == 'Rejected')
+                                    @if($request->apply_status == 'Approved' || $request->apply_status == 'Pending' || $request->apply_status == 'Rejected')<!--display all the status-->
                                         <tr>
                                             <td class="text-center">{{ $request->training_code }}</td>
                                             <td class="text-center">{{ $request->title }}</td>
                                             <td class="text-center">{{ $request->type }}</td>
                                             <td class="text-center">{{ $request->category }}</td>
                                             <td class="text-center">
-                                                @if ($request->apply_status == 'Approved')
+                                                @if ($request->apply_status == 'Approved')<!--when the status is approved, it show green button-->
                                                     <button class="btn btn-success">{{ $request->apply_status }}</button>
-                                                @elseif ($request->apply_status == 'Pending')
+                                                @elseif ($request->apply_status == 'Pending')<!--when the status is pending, it show yellow button-->
                                                     <button class="btn btn-warning">{{ $request->apply_status }}</button>
-                                                @elseif ($request->apply_status == 'Rejected')
+                                                @elseif ($request->apply_status == 'Rejected')<!--when the status is rejected, it show red button-->
                                                     <button class="btn btn-danger">{{ $request->apply_status }}</button>
                                                 @endif
                                             </td>
@@ -104,6 +104,5 @@
             </div>
         </div>
     </footer>
-
 
 @include('partials.footer')

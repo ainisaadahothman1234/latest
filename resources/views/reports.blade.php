@@ -9,18 +9,20 @@
         <div class="col-md-8 col-lg-6 col-xl-3"> <!-- Increase the column size to col-xl-6 -->
           <div class="card mb-0">
             <div class="card-body">
+              <!--KPJ Logo-->
               <img src="{{ asset('images/logo.PNG') }}" alt="Logo" width="100" class="text-nowrap logo-img text-center d-block py-3 w-100">
               
               @if(Auth()->user()->admin)
-        <h5 class="card-title my-3 mx-3 text-center">Report</h5>
-    @else
-        <h5 class="card-title my-3 mx-3 text-center">Your Report</h5>
-    @endif
+                  <h5 class="card-title my-3 mx-3 text-center">Report</h5>
+              @else
+                  <h5 class="card-title my-3 mx-3 text-center">Your Report</h5>
+              @endif
               
-
+              <!--form to select start month and end month-->
               <form action="{{ route('generateReport') }}" method="post">
                 @csrf
                 <div class="mb-3 my-3 d-flex justify-content-between"> <!-- Wrap the label and select in a div with justify-content-between -->
+                <!--Start month-->
                   <div>
                     <label for="start_month">Select Start Month:</label>
                     <select name="start_month" id="start_month">
@@ -30,6 +32,7 @@
                     </select>
                   </div>
 
+                  <!--End month-->
                   <div>
                     <label for="end_month">Select End Month:</label>
                     <select name="end_month" id="end_month">
@@ -39,6 +42,7 @@
                     </select>
                   </div>
 
+                  <!--Year-->
                   <div>
                     <label for="year">Select Year:</label>
                     <select name="year" id="year">
@@ -49,6 +53,7 @@
                   </div>
                 </div>
 
+                <!--Download button-->
                 <div class="d-flex justify-content-end">
                   <button type="submit" class="btn btn-primary">Download</button> <!-- Add Bootstrap button class -->
                 </div>

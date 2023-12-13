@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Notification;
 
 class NotificationController extends Controller
 {
-    //
-
+    //A function use to send a notification email
     public function sendNotification()
     {
         // Define the email address as a notifiable route.
@@ -36,7 +35,7 @@ class NotificationController extends Controller
         Notification::route('mail', $emailAddress)->notify(new CourseEnrollment($enrollmentData));
     }
     
-
+    //Retrieves pending training applications for the HOS.
     public function applications()
     {
         $user = Auth()->user();
@@ -62,11 +61,14 @@ class NotificationController extends Controller
         return view('hos.application', ['staff' => $staff]);
     }
 
-    public static function showTitle($code){
+    //Static function that fetches the title of a training based on its code from the Training model.
+    public static function showTitle($code)
+    {
         $title = Training::where('code', $code)->pluck('title');
         return $title;
     }
 
+    //Approves a specific training application.
     public function approveApplication(Request $request)
     {
         $staffId = $request->input('staff_id');
@@ -98,11 +100,11 @@ class NotificationController extends Controller
         $staffName = User::getName($staffId);
     
         $detail = <<<HTML
-    <ul>
-        <li>Training: $TrainingName</li>
-        <li>User: $staffName</li>
-    </ul>
-    HTML;
+                        <ul>
+                            <li>Training: $TrainingName</li>
+                            <li>User: $staffName</li>
+                        </ul>
+                    HTML;
     
         HistoryController::store('Staff Training applies', 'Approved', $detail);
         HistoryController::store('Staff Training applies', 'Approved', $detail, $staffId);
@@ -112,7 +114,7 @@ class NotificationController extends Controller
         return redirect()->back();
     }
     
-
+    //Rejects a specific training application.
     public function deleteApplication(Request $request)
     {
         $staffId = $request->input('staff_id');
@@ -149,13 +151,12 @@ class NotificationController extends Controller
             ->where('training_code', $request->input('training_code'))
             ->get();
     
-        HistoryController::store('Staff Training applies', 'Disapproved', $detail);
-        HistoryController::store('Staff Training applies', 'Disapproved', $detail, $staffId);
+        HistoryController::store('Staff Training applies', 'Rejected', $detail);
+        HistoryController::store('Staff Training applies', 'Rejected', $detail, $staffId);
         Mail::to($adminEmail)->send(new CourseApprovalNotification($staffApplications));
     
         session()->flash('success', 'Application has been deleted.');
         return redirect()->back();
     }
-    
-    
 }
+

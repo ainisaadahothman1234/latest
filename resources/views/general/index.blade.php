@@ -5,36 +5,50 @@
         <div class="row justify-content-center w-100">
           <div class="col-md-8 col-lg-6 col-xxl-3">
             <div class="card mb-0" id="card_front">
+
+              <!--KPJ logo-->
               <div class="card-body">
                   <img src="{{ asset('images/logo.PNG') }}" alt="Logo" width="180" class="text-nowrap logo-img text-center d-block py-3 w-100">
+
+                <!--title-->
                 <p class="text-center fw-2">Training System</p>
+
+                <!--Error message-->
                 @if(Session::has('error'))
                 <div class="alert alert-danger" role="alert">
                     {{ Session::get('error') }}
                 </div>
                 @endif
                 
+                <!--form to capture the staff id & password-->
                 <form action="{{route('login')}}" method="POST" class="form-signin">
                     
                 @csrf
+
+                <!--Staff ID-->
                   <div class="mb-3">
                   <label for="staff_id" class="form-label">Staff ID</label>
                     <input type="text" id="staff_id" name="staff_id" class="form-control my-2" placeholder="Staff ID" required>
+                    <!--error message for no staff id registered-->
                         @error('staff_id')
                         <p class="text-danger text-xs mt-1">{{$message}}</p>
                         @enderror
                   </div>
+                  <!--password-->
                   <div class="mb-4">
                   <label for="password" class="form-label">Password</label>
                     <input type="password" id="password" name="password" class="form-control my-2" placeholder="Password" autocomplete="off" required>
+                    <!--error message for incorrect password-->
                         @error('password')
                         <p class="text-danger text-xs mt-1">{{$message}}</p>
                         @enderror
                   </div>
+                  <!--error message when both is wrong-->
                     @foreach ($errors-> all() as $error)
                         <li>{{$error}}</li>
                     @endforeach
                   
+                    <!--submit button-->
                     <div class="mb-4">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -64,3 +78,4 @@
     </footer>
 
 @include('partials.index-footer')
+
