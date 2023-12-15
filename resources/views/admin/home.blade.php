@@ -52,12 +52,14 @@
                     <label for="filter_year">Select Year:</label>
                     <select name="filter_year" id="filter_year">
                         @php
-                        $currentYear = date('Y');
-                        <!--display the selected year-->
-                        for ($year = $currentYear; $year >= ($currentYear - 15); $year--) {
-                            echo "<option value=\"$year\" {{ $filterYear == $year ? 'selected' : '' }}>$year</option>";
-                        }
+                            $currentYear = date('Y');
                         @endphp
+                        <!--display the selected year-->
+                        @for ($year = $currentYear; $year >= ($currentYear - 15); $year--)
+                            <option value="{{ $year }}" {{ $filterYear == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endfor
                     </select>
 
                     <!--<button type="submit">Apply Filter</button>-->

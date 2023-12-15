@@ -31,8 +31,13 @@
                                     <label class="fw-semibold form-check-label" for="selectAll">All</label>
                                 </div>-->
                 
+                                <div class="container-fluid d-flex justify-content-end">
+                                    <!-- Search box -->
+                                    <input type="text" id="searchName" onkeyup="filterTable()" placeholder="Search">
+                                </div>
+
                                 <div class="table">
-                                    <table class="table">
+                                    <table class="table" id="searchTable">
                                         <thead class="text-sm fw-light">
                                             <tr>
                                                 <th>No</th>
@@ -44,13 +49,13 @@
                                         </thead>
                                         <tbody>
                                             @foreach($staffInService as $id => $staff)<!--list of staff under the services-->
-                                            <tr>
-                                                <td>{{ $id + 1 }}</td>
-                                                <td>{{ $staff->staff_id }}</td>
-                                                <td>{{ $staff->name }}</td>
-                                                <td>{{ App\Http\Controllers\StaffController::getHour($staff->staff_id) }}</td><!--staff total training hours-->
-                                                <td><input class="form-check-input" type="checkbox" name="selectedStaff[]" id="selectedStaff[]" value="{{ $staff->staff_id }}"></td>
-                                            </tr>
+                                                <tr>
+                                                    <td>{{ $id + 1 }}</td>
+                                                    <td>{{ $staff->staff_id }}</td>
+                                                    <td>{{ $staff->name }}</td>
+                                                    <td>{{ App\Http\Controllers\StaffController::getHour($staff->staff_id) }}</td><!--staff total training hours-->
+                                                    <td><input class="form-check-input" type="checkbox" name="selectedStaff[]" id="selectedStaff[]" value="{{ $staff->staff_id }}"></td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -93,6 +98,30 @@
         });
     });
 
+</script>
+
+<script>
+    function filterTable() {
+        const input = document.getElementById("searchName").value.toUpperCase();
+        const table = document.getElementById("searchTable");
+        const tbody = table.getElementsByTagName("tbody")[0];
+        const tr = tbody.getElementsByTagName("tr");
+
+        for (let i = 0; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName("td");
+            let display = false;
+
+            for (let j = 0; j < td.length; j++) {
+                const txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(input) > -1) {
+                    display = true;
+                    break;
+                }
+            }
+
+            tr[i].style.display = display ? "" : "none";
+        }
+    }
 </script>
 
 <x-flash />
