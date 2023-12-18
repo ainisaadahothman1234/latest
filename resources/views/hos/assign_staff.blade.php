@@ -36,8 +36,10 @@
                                     <input type="text" id="searchName" onkeyup="filterTable()" placeholder="Search">
                                 </div>
 
+                                <!--Table for when the staff from the same services as HOS-->
                                 <div class="table">
-                                    <table class="table" id="searchTable">
+                                <h4>Your Staff</h4>
+                                    <table class="table" id="searchTableYourStaff">
                                         <thead class="text-sm fw-light">
                                             <tr>
                                                 <th>No</th>
@@ -57,8 +59,36 @@
                                                     <td><input class="form-check-input" type="checkbox" name="selectedStaff[]" id="selectedStaff[]" value="{{ $staff->staff_id }}"></td>
                                                 </tr>
                                             @endforeach
+
                                         </tbody>
                                     </table>
+
+                                    <!--table when staff not same service from HOS-->
+                                    <h4>All Staff</h4>
+                                    <table class="table" id="searchTableOtherStaff">
+                                        <thead class="text-sm fw-light">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Staff ID</th>
+                                                <th>Staff Name</th>
+                                                <th>Total Hours</th>
+                                                <th>Select</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach($allStaff as $id => $staff)<!--list of staff under the services-->
+                                                <tr>
+                                                    <td>{{ $id + 1 }}</td>
+                                                    <td>{{ $staff->staff_id }}</td>
+                                                    <td>{{ $staff->name }}</td>
+                                                    <td>{{ App\Http\Controllers\StaffController::getHour($staff->staff_id) }}</td><!--staff total training hours-->
+                                                    <td><input class="form-check-input" type="checkbox" name="selectedStaff[]" id="selectedStaff[]" value="{{ $staff->staff_id }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
@@ -103,7 +133,16 @@
 <script>
     function filterTable() {
         const input = document.getElementById("searchName").value.toUpperCase();
-        const table = document.getElementById("searchTable");
+        
+        // Filter Your Staff table
+        filterTableById("searchTableYourStaff", input);
+        
+        // Filter Other Staff table
+        filterTableById("searchTableOtherStaff", input);
+    }
+
+    function filterTableById(tableId, input) {
+        const table = document.getElementById(tableId);
         const tbody = table.getElementsByTagName("tbody")[0];
         const tr = tbody.getElementsByTagName("tr");
 
