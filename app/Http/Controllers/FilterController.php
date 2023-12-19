@@ -90,15 +90,14 @@ class FilterController extends Controller
         if (request()->is('external/form')) {
             $Etraining = session('ETraining');
             $service = User::where('staff_id', $user->staff_id)->pluck('service');
-            $staffInService = User::where('service', Auth()->user()->service)->get();
-            $allStaff = User::where('service', '!=', $user->service)->get();
+            $staffInService = User::where('service', Auth()->user()->service)->where('position','!=','ITadmin')->get();
+            $allStaff = User::where('service', '!=', $user->service)->where('service','!=','admin')->get();
             
         } else {
             $staffInService = Apply::where('training_code', $Etraining)->pluck('staff_id')->toArray();
-            $staffInService = User::whereNotIn('staff_id', $staffInService)->where('service',$user->service)->get();
-            $allStaff = User::where('service', '!=', $user->service)->get();
+            $staffInService = User::whereNotIn('staff_id', $staffInService)->where('service',$user->service)->where('position','!=','ITadmin')->get();
+            $allStaff = User::where('service', '!=', $user->service)->where('service','!=','admin')->get();
         }
-
         
         // Use the $ETraining parameter, not $request->ETraining
         return view('hos.assign_staff', ['staffInService' => $staffInService, 'ETraining' => $Etraining, 'allStaff'=>$allStaff]);
